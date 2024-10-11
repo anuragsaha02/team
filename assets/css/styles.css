@@ -251,6 +251,83 @@ p {
 }
 
 
+/* General Styles */
+.scroller {
+  max-width: 100%; /* Make sure the scroller doesn't exceed its container */
+  overflow-x: auto; /* Enable horizontal scrolling for small screens */
+}
+
+.scroller__inner {
+  padding-block: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center; /* Center content when it wraps */
+  
+}
+
+/* Animation Effects */
+.scroller[data-animated="true"] {
+  overflow: hidden;
+  -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+  mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+}
+
+.scroller[data-animated="true"] .scroller__inner {
+  width: max-content;
+  flex-wrap: nowrap;
+  animation: scroll var(--_animation-duration, 40s) var(--_animation-direction, forwards) linear infinite;
+}
+
+.scroller[data-direction="right"] {
+  --_animation-direction: reverse;
+}
+
+.scroller[data-direction="left"] {
+  --_animation-direction: forwards;
+}
+
+.scroller[data-speed="fast"] {
+  --_animation-duration: 20s;
+}
+
+.scroller[data-speed="slow"] {
+  --_animation-duration: 60s;
+}
+
+/* Keyframes for smooth scrolling animation */
+@keyframes scroll {
+  to {
+    transform: translateX(calc(-50% - 0.5rem));
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .scroller__inner {
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    gap: 0.5rem;
+  }
+
+  /* Ensure images adjust on smaller screens */
+  .scroller img {
+    max-width: 2rem; /* Ensure images resize properly */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensure images cover their container without stretching */
+  }
+}
+
+@media (min-width: 769px) {
+  .scroller img {
+    max-width: 300px; /* Set a max-width for larger screens */
+    height: auto; /* Keep aspect ratio */
+    object-fit: cover; /* Prevent distortion */
+    max-width: 2rem; /* Ensure images resize properly */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover;
+  }
+}
+
 /* Year Section Styling */
 #yr23-24 {
   width: 100%;
